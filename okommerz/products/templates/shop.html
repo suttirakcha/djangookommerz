@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Shop{% endblock %}
+
+{% block content %}
+
+<h1 class='text-4xl font-bold text-center mb-10'>Products</h1>
+
+<section class='grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-5 gap-y-10 lg:gap-10'>
+  <div class='col-span-1'>
+    <h2 class='text-2xl font-bold mb-6'>Filter product</h2>
+    <div class='flex flex-col gap-y-2'>
+      <label for='filter_cate' class='font-medium'>Category</label>
+      <select class="select select-info w-full" id='filter_cate'>
+        {% for category in categories %}
+        <option value={{ category }}>{{ category }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class='flex flex-col gap-y-2 mt-4'>
+      <label for='filter_price' class='font-medium'>Price range</label>
+      <select class="select select-info w-full">
+        <option selected>Select price range</option>
+        <option value='฿0 - ฿100'>฿0 - ฿100</option>
+        <option value='฿101 - ฿200'>฿101 - ฿200</option>
+        <option value='฿201 - ฿300'>฿201 - ฿300</option>
+        <option value='฿301 - ฿400'>฿301 - ฿400</option>
+        <option value='฿401 - ฿500'>฿401 - ฿500</option>
+        <option value='more than ฿500'>more than ฿500</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-span-3 xl:col-span-4'>
+    <div class='grid lg:grid-cols-2 xl:grid-cols-3 gap-4'>
+      {% if products|length > 0 %}
+        {% for product in products %}
+          <div class="card bg-base-100 hover:shadow-lg border overflow-hidden">
+            <a href="product/{{ product.id }}">
+            {% if product.product_image %}
+              <figure><img src="{{ product.product_image.url }}" alt="{{ product.product_image.url }}" class='min-h-[300px] h-[300px] object-cover w-full'/></figure>
+            {% else %}
+              <div class='bg-gray-200 max-w-full min-h-[300px] h-full'></div>
+            {% endif %}
+            </a>
+            <div class="card-body">
+              <p class='text-sm'>{{ product.product_category }}</p>
+              <div class='mb-4'>
+                <a href="product/{{ product.id }}">
+                  <h2 class="card-title">{{ product.product_name }}</h2>
+                </a>
+                {% if product.sales_price %}
+                <div class='inline-flex items-center gap-x-2'>
+                  <p class='line-through text-red-400 text-sm'>฿{{ product.regular_price }}</p>
+                  <p class='font-medium'>฿{{ product.sales_price }}</p>
+                </div>
+                {% else %}
+                  <p class='font-medium'>฿{{ product.regular_price }}</p>
+                {% endif %}
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-neutral w-full text-base">Add to cart</button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <h1>There are no products you are looking for.</h1>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

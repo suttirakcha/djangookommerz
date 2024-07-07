@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign in{% endblock %}
+
+{% block content %}
+
+<div id='signin-form'>
+  <h1 class='text-4xl font-bold text-center mb-10'>Log in to your account</h1>
+
+  <form method='POST' class='flex flex-col gap-y-4 max-w-xl mx-auto'>
+    {% csrf_token %}
+
+    <div class='flex flex-col gap-y-2'>
+      <label for="id_username" class='text-lg'>Username</label>
+      <input type="text" placeholder="Username" class="input input-bordered w-full" name="username" maxlength="255" required="" id="id_username"/>
+    </div>
+    <div class='flex flex-col gap-y-2'>
+      <label for="id_password" class='text-lg'>Password</label>
+      <input type="password" placeholder="Password" class="input input-bordered w-full" name="password" maxlength="255" required="" id="id_password"/>
+    </div>
+    <div class='flex flex-col w-full gap-y-4 mb-4'>
+      <a class='link link-info inline-block'>Forgot password?</a>
+      <p class='text-neutral text-lg w-full text-center'>Don't have an account? <a class='link link-info' href={% url 'signup' %}>Sign up</a></p>
+    </div>
+    <p class='text-error text-sm'>{{ message }}</p>
+    <button class='btn btn-neutral text-base' onclick='my_modal_4.showModal()'>Log in</button>
+  </form>
+
+  <dialog id="my_modal_4" class="modal">
+    <div class="modal-box p-10">
+      <h3 class="font-bold text-2xl text-center">Logging in, redirecting to the homepage...</h3>
+    </div>
+  </dialog>
+</div>
+
+{% endblock %}
