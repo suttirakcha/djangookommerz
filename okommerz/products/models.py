@@ -10,6 +10,27 @@ PROMOTION_TYPE_CHOICE = (
     ('Coupon', 'Coupon')
 )
 
+GENDER = (
+    ('Male', 'Male'),
+    ('Female', 'Female')
+)
+
+CUSTOMER_TYPE_CHOICES = (
+    ('Company', 'Company'),
+    ('Individual', 'Individual'),
+    ('Proprietorship', 'Proprietorship'),
+    ('Partnership', 'Partnership')
+)
+
+SALES_CHANNELS = (
+    ('Website', 'Website'),
+    ('Shopee', 'Shopee'),
+    ('Lazada', 'Lazada'),
+    ('Aliexpress', 'Aliexpress'),
+    ('TikTok Shop', 'TikTok Shop'),
+    ('Other', 'Other')
+)
+
 class Coupon(models.Model):
     coupon_name = models.CharField(max_length=255)
     coupon_code = models.CharField(max_length=255)
@@ -78,3 +99,21 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product} for {self.user.username}"
+
+class Customer(models.Model):
+    customer_name = models.CharField(max_length=255)
+    customer_email = models.EmailField()
+    customer_birth = models.DateField()
+    customer_type = models.CharField(max_length=255,choices=CUSTOMER_TYPE_CHOICES,default=1)
+    gender = models.CharField(max_length=255,choices=GENDER,blank=True,null=True)
+
+    def __str__(self):
+        return self.customer_name
+
+
+class SalesInvoice(models.Model):
+    order_id = models.CharField(max_length=255)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer_address = models.TextField()
+    sales_channel = models.CharField(max_length=255, choices=SALES_CHANNELS, default=1)
+    items = models.ManyToManyField(ProductItem)
