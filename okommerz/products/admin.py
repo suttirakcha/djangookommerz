@@ -15,7 +15,15 @@ class ProductCategoryLists(admin.ModelAdmin):
 class MarketingCampaignLists(admin.ModelAdmin):
     list_display = ['campaign_name', 'campaign_description']
 
+class CustomerLists(admin.ModelAdmin):
+    list_display = ['customer_name', 'customer_email', 'customer_birth', 'customer_type']
+
+class SalesInvoiceLists(admin.ModelAdmin):
+    list_display = ['order_id', 'customer']
+
 admin.site.register(ProductItem, ProductLists)
 admin.site.register(Address, AddressLists)
 admin.site.register(ProductCategory, ProductCategoryLists)
 admin.site.register(MarketingCampaign, MarketingCampaignLists)
+admin.site.register(Customer, CustomerLists)
+admin.site.register(SalesInvoice, SalesInvoiceLists)
