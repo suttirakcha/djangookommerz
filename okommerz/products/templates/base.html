@@ -24,7 +24,7 @@
       <nav class='flex items-center gap-x-6'>
         {% if request.user.is_authenticated %}
           <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="whitespace-pre">Hello, {{ user.first_name }}</div>
+            <div tabindex="0" role="button" class="whitespace-pre">Hello, {{ user.username }}</div>
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-2" id='account-menus'></ul>
             <dialog id="my_modal_3" class="modal">
               <div class="modal-box p-10">
