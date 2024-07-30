@@ -7,7 +7,18 @@
 <section class='grid grid-cols-1 lg:grid-cols-2 gap-y-10 lg:gap-16'>
   <section>
     {% if product.product_image %}
-      <img class='rounded-md w-full' src={{ product.product_image.url }}>
+      <div class='relative overflow-hidden'>
+        <img class='rounded-md w-full' src={{ product.product_image.url }}>
+
+        <div class='absolute bottom-6 left-0 flex overflow-auto w-full gap-4 p-4' id="multi-images">
+          <div class="min-w-[160px] w-[160px] h-[160px] bg-gray-200 rounded-lg"></div>
+          <div class="min-w-[160px] w-[160px] h-[160px] bg-gray-200 rounded-lg"></div>
+          <div class="min-w-[160px] w-[160px] h-[160px] bg-gray-200 rounded-lg"></div>
+          <div class="min-w-[160px] w-[160px] h-[160px] bg-gray-200 rounded-lg"></div>
+        </div>
+
+        <button class='absolute bottom-0 bg-gray-200/50 w-full inline-block rounded-b-md h-8' id='multi-image-toggle-btn'>Open</button>
+      </div>
     {% else %}
        <div class='w-full h-[600px] rounded-md bg-gray-200'></div>
     {% endif %}
@@ -70,6 +81,9 @@
     var fullDescription = document.getElementById("fullDescription");
     var shorterDescription = document.getElementById("shorterDescription");
     var seeMoreBtn = document.getElementById("seeMoreBtn");
+
+    var multiImageToggleBtn = document.getElementById("multi-image-toggle-btn")
+    var multiImage = document.getElementById("multi-images")
 
     if (fullDescription.style.display === "none") {
       fullDescription.style.display = "inline";
